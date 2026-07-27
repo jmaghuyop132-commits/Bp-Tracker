@@ -1,11 +1,11 @@
-const CACHE = "bunny-bp-v2-4-root-icons";
+const CACHE = "bunny-bp-v2-5-all-root";
 const ASSETS = [
   "./",
   "./index.html",
   "./styles.css",
   "./script.js",
   "./manifest.webmanifest",
-  "./images/rabbit-head.png",
+  "./rabbit-head.png",
   "./icon-192.png",
   "./icon-512.png"
 ];
