@@ -1,4 +1,4 @@
-const CACHE = "bunny-bp-v2-6-final-root-fixed";
+const CACHE = "bunny-bp-v2-8-numbers-only";
 const ASSETS = [
   "./",
   "./index.html",

@@ -47,12 +47,7 @@
         <article class="summary-card">
           <span>7-day average</span>
           <strong id="avgReading">— / —</strong>
-          <small id="avgPulse">Pulse —</small>
-        </article>
-        <article class="summary-card">
-          <span>Category</span>
-          <strong id="latestCategory">—</strong>
-          <small id="categoryHint">Add a reading to begin</small>
+          <small id="avgCount">0 readings</small>
         </article>
       </section>
 
@@ -74,10 +69,6 @@
             <label>
               <span>Diastolic</span>
               <input id="diastolic" type="number" min="35" max="160" inputmode="numeric" placeholder="80" required />
-            </label>
-            <label>
-              <span>Pulse</span>
-              <input id="pulse" type="number" min="30" max="220" inputmode="numeric" placeholder="70" required />
             </label>
             <label>
               <span>Date and time</span>
@@ -117,7 +108,7 @@
         <div class="panel-heading chart-heading">
           <div>
             <h2>Trend</h2>
-            <p>Systolic, diastolic, and pulse.</p>
+            <p>Systolic and diastolic.</p>
           </div>
           <select id="rangeSelect" aria-label="Chart range">
             <option value="7">7 days</option>
@@ -132,7 +123,6 @@
         <div class="legend">
           <span><i class="dot systolic"></i>Systolic</span>
           <span><i class="dot diastolic"></i>Diastolic</span>
-          <span><i class="dot pulse"></i>Pulse</span>
         </div>
       </section>
 
@@ -142,7 +132,7 @@
             <h2>History</h2>
             <p id="historyCount">0 readings</p>
           </div>
-          <input id="searchInput" class="search-input" type="search" placeholder="Search notes or category" />
+          <input id="searchInput" class="search-input" type="search" placeholder="Search readings or notes" />
         </div>
         <div id="historyList" class="history-list"></div>
         <div id="emptyHistory" class="empty-state">No readings yet.</div>

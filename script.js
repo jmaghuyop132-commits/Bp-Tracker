@@ -90,10 +90,9 @@ function saveReading(event) {
   event.preventDefault();
   const systolic = Number($("systolic").value);
   const diastolic = Number($("diastolic").value);
-  const pulse = Number($("pulse").value);
   const takenAt = $("takenAt").value;
 
-  if (!systolic || !diastolic || !pulse || !takenAt) {
+  if (!systolic || !diastolic || !takenAt) {
     showMessage("Please complete all required fields.");
     return;
   }
@@ -107,7 +106,6 @@ function saveReading(event) {
     id,
     systolic,
     diastolic,
-    pulse,
     takenAt,
     medication: $("medication").checked,
     timeOfDay: $("timeOfDay").value,
@@ -139,14 +137,6 @@ function showMessage(message) {
   showMessage.timer = setTimeout(() => $("formMessage").textContent = "", 3000);
 }
 
-function getCategory(sys, dia) {
-  if (sys >= 180 || dia >= 120) return { label: "Very high", color: "#ff4d6d", hint: "Recheck and seek urgent advice if it persists or symptoms occur." };
-  if (sys >= 140 || dia >= 90) return { label: "High — stage 2", color: "#ff6b6b", hint: "Consider discussing repeated readings with a clinician." };
-  if (sys >= 130 || dia >= 80) return { label: "High — stage 1", color: "#ffa94d", hint: "Track patterns and follow your care plan." };
-  if (sys >= 120 && dia < 80) return { label: "Elevated", color: "#ffd166", hint: "Keep monitoring your trend." };
-  return { label: "Normal range", color: "#63d6a7", hint: "Continue regular monitoring." };
-}
-
 function renderAll() {
   renderSummary();
   renderHistory();
@@ -158,26 +148,20 @@ function renderSummary() {
     $("latestReading").textContent = "— / —";
     $("latestMeta").textContent = "No readings yet";
     $("avgReading").textContent = "— / —";
-    $("avgPulse").textContent = "Pulse —";
-    $("latestCategory").textContent = "—";
-    $("categoryHint").textContent = "Add a reading to begin";
+    $("avgCount").textContent = "0 readings";
     return;
   }
 
   const latest = readings[0];
-  const category = getCategory(latest.systolic, latest.diastolic);
   $("latestReading").textContent = `${latest.systolic} / ${latest.diastolic}`;
-  $("latestMeta").textContent = `${formatDate(latest.takenAt)} · Pulse ${latest.pulse}`;
-  $("latestCategory").textContent = category.label;
-  $("latestCategory").style.color = category.color;
-  $("categoryHint").textContent = category.hint;
+  $("latestMeta").textContent = formatDate(latest.takenAt);
 
   const cutoff = Date.now() - 7 * 86400000;
   const recent = readings.filter((r) => new Date(r.takenAt).getTime() >= cutoff);
   const source = recent.length ? recent : [latest];
   $("avgReading").textContent =
     `${average(source, "systolic")} / ${average(source, "diastolic")}`;
-  $("avgPulse").textContent = `Pulse ${average(source, "pulse")} · ${source.length} reading${source.length === 1 ? "" : "s"}`;
+  $("avgCount").textContent = `${source.length} reading${source.length === 1 ? "" : "s"}`;
 }
 
 function average(list, key) {
@@ -187,8 +171,7 @@ function average(list, key) {
 function renderHistory() {
   const query = $("searchInput").value.trim().toLowerCase();
   const filtered = readings.filter((r) => {
-    const category = getCategory(r.systolic, r.diastolic).label;
-    return `${r.notes} ${r.timeOfDay} ${category} ${r.systolic}/${r.diastolic} ${r.pulse}`
+    return `${r.notes} ${r.timeOfDay} ${r.systolic}/${r.diastolic}`
       .toLowerCase().includes(query);
   });
 
@@ -196,16 +179,14 @@ function renderHistory() {
   $("emptyHistory").hidden = filtered.length > 0;
 
   $("historyList").innerHTML = filtered.map((r) => {
-    const category = getCategory(r.systolic, r.diastolic);
     return `
       <article class="history-item">
         <div>
           <div class="reading-main">
             <span class="reading-value">${r.systolic} / ${r.diastolic}</span>
-            <span class="pill" style="color:${category.color}">${escapeHtml(category.label)}</span>
           </div>
           <div class="reading-meta">
-            ${formatDate(r.takenAt)} · Pulse ${r.pulse} · ${escapeHtml(r.timeOfDay)}
+            ${formatDate(r.takenAt)} · ${escapeHtml(r.timeOfDay)}
             ${r.medication ? " · Medication taken" : ""}
           </div>
           ${r.notes ? `<div class="reading-notes">${escapeHtml(r.notes)}</div>` : ""}
@@ -224,7 +205,6 @@ window.editReading = function(id) {
   $("editingId").value = r.id;
   $("systolic").value = r.systolic;
   $("diastolic").value = r.diastolic;
-  $("pulse").value = r.pulse;
   $("takenAt").value = r.takenAt;
   $("medication").checked = r.medication;
   $("timeOfDay").value = r.timeOfDay || "Other";
@@ -274,7 +254,7 @@ function drawChart() {
   const pad = { left: 42, right: 18, top: 20, bottom: 38 };
   const w = displayWidth - pad.left - pad.right;
   const h = displayHeight - pad.top - pad.bottom;
-  const allValues = data.flatMap((r) => [r.systolic, r.diastolic, r.pulse]);
+  const allValues = data.flatMap((r) => [r.systolic, r.diastolic]);
   let min = Math.max(20, Math.floor((Math.min(...allValues) - 15) / 10) * 10);
   let max = Math.ceil((Math.max(...allValues) + 15) / 10) * 10;
   if (max - min < 60) max = min + 60;
@@ -295,8 +275,7 @@ function drawChart() {
 
   const series = [
     { key:"systolic", color:"#ff5c9a" },
-    { key:"diastolic", color:"#8dc3ff" },
-    { key:"pulse", color:"#ffd166" }
+    { key:"diastolic", color:"#8dc3ff" }
   ];
   series.forEach((s) => {
     ctx.strokeStyle = s.color;
@@ -323,10 +302,9 @@ function drawChart() {
 
 function exportCsv() {
   if (!readings.length) return alert("There are no readings to export.");
-  const headers = ["Date/Time","Systolic","Diastolic","Pulse","Category","Medication Taken","Time of Day","Notes"];
+  const headers = ["Date/Time","Systolic","Diastolic","Medication Taken","Time of Day","Notes"];
   const rows = readings.map((r) => [
-    r.takenAt, r.systolic, r.diastolic, r.pulse,
-    getCategory(r.systolic,r.diastolic).label,
+    r.takenAt, r.systolic, r.diastolic,
     r.medication ? "Yes" : "No", r.timeOfDay, r.notes
   ]);
   const csv = [headers, ...rows].map(row => row.map(csvCell).join(",")).join("\n");
@@ -345,7 +323,7 @@ async function importJson(event) {
     const data = JSON.parse(await file.text());
     const imported = Array.isArray(data) ? data : data.readings;
     if (!Array.isArray(imported)) throw new Error("Invalid format");
-    const valid = imported.filter((r) => r && r.id && r.systolic && r.diastolic && r.pulse && r.takenAt);
+    const valid = imported.filter((r) => r && r.id && r.systolic && r.diastolic && r.takenAt);
     if (!confirm(`Import ${valid.length} reading(s)? Existing readings with matching IDs will be replaced.`)) return;
     const map = new Map(readings.map((r) => [r.id,r]));
     valid.forEach((r) => map.set(r.id,r));

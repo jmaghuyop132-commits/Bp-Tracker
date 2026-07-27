@@ -32,3 +32,8 @@ Open the GitHub Pages website in Chrome, then use **Add to Home screen** or the 
 ## Privacy
 
 Readings are stored in the browser on the current device using local storage. Export a JSON backup before clearing browser data or changing phones.
+
+
+Update: Replaced hypertension stage labels with calmer target-based status wording while keeping all other features unchanged.
+
+Update: Pulse entry and pulse displays were removed. Existing saved blood-pressure readings remain compatible; any old pulse values are simply ignored by the interface.

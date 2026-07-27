@@ -121,7 +121,7 @@ h2 { margin-bottom: 4px; font-size: 20px; }
 main { display: grid; gap: 16px; }
 .summary-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 12px;
 }
 .summary-card, .panel, .info-note {
@@ -212,7 +212,6 @@ canvas { width: 100%; height: 320px; display: block; }
 .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
 .dot.systolic { background: #ff5c9a; }
 .dot.diastolic { background: #8dc3ff; }
-.dot.pulse { background: #ffd166; }
 
 .history-heading { align-items: end; }
 .search-input { max-width: 300px; }
