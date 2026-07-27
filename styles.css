@@ -74,8 +74,8 @@ button { cursor: pointer; }
   z-index: 2;
   left: 0%;
   top: 50%;
-  width: 72px;
-  height: 72px;
+  width: 88px;
+  height: 88px;
   object-fit: contain;
   object-position: center;
   transform: translate(-50%, -50%);
@@ -85,7 +85,7 @@ button { cursor: pointer; }
     drop-shadow(-1px 0 0 white)
     drop-shadow(0 1px 0 white)
     drop-shadow(0 -1px 0 white)
-    drop-shadow(0 6px 10px rgba(0,0,0,.45));
+    drop-shadow(0 7px 12px rgba(0,0,0,.5));
 }
 .progress-text {
   margin-top: 28px;
@@ -93,10 +93,6 @@ button { cursor: pointer; }
   font-weight: 700;
 }
 @keyframes stripes { to { background-position: 34px 0; } }
-@keyframes bunnyBounce {
-  0%,100% { transform: translate(-50%, -50%); }
-  50% { transform: translate(-50%, -53%); }
-}
 
 .app-shell {
   width: min(1120px, calc(100% - 24px));
@@ -275,5 +271,5 @@ canvas { width: 100%; height: 320px; display: block; }
   .panel { padding: 16px; }
   .history-item { grid-template-columns: 1fr; }
   .item-actions { justify-content: flex-end; }
-  .loader-rabbit { width: 64px; height: 64px; }
+  .loader-rabbit { width: 76px; height: 76px; }
 }

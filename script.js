@@ -44,7 +44,7 @@ function runLoader() {
     const eased = 1 - Math.pow(1 - progress, 3);
     const percent = Math.round(eased * 100);
     fill.style.width = `${percent}%`;
-    rabbit.style.left = `${percent}%`;
+    rabbit.style.left = `clamp(0px, ${percent}%, 100%)`;
     text.textContent = `${percent}%`;
 
     if (progress < 1) {
