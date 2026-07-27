@@ -1,4 +1,4 @@
-const CACHE = "bunny-bp-v2-8-numbers-only";
+const CACHE = "bp-tracker-bunny-v3";
 const ASSETS = [
   "./",
   "./index.html",
