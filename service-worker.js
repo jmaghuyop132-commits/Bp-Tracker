@@ -1,4 +1,4 @@
-const CACHE = "bunny-bp-v2-3-real-rabbit";
+const CACHE = "bunny-bp-v2-4-root-icons";
 const ASSETS = [
   "./",
   "./index.html",
@@ -6,8 +6,8 @@ const ASSETS = [
   "./script.js",
   "./manifest.webmanifest",
   "./images/rabbit-head.png",
-  "./icons/icon-192.png",
-  "./icons/icon-512.png"
+  "./icon-192.png",
+  "./icon-512.png"
 ];
 
 self.addEventListener("install", (event) => {
