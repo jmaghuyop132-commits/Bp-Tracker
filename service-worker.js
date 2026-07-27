@@ -1,4 +1,4 @@
-const CACHE = "bunny-bp-v2-1";
+const CACHE = "bunny-bp-v2-2-loader-fix";
 const ASSETS = [
   "./",
   "./index.html",

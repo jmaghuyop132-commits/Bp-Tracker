@@ -74,17 +74,18 @@ button { cursor: pointer; }
   z-index: 2;
   left: 0%;
   top: 50%;
-  width: 82px;
-  height: 82px;
+  width: 72px;
+  height: 72px;
   object-fit: contain;
-  transform: translate(-45%, -58%);
+  object-position: center;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
   filter:
     drop-shadow(1px 0 0 white)
     drop-shadow(-1px 0 0 white)
     drop-shadow(0 1px 0 white)
     drop-shadow(0 -1px 0 white)
-    drop-shadow(0 7px 10px rgba(0,0,0,.45));
-  animation: bunnyBounce .75s ease-in-out infinite;
+    drop-shadow(0 6px 10px rgba(0,0,0,.45));
 }
 .progress-text {
   margin-top: 28px;
@@ -93,8 +94,8 @@ button { cursor: pointer; }
 }
 @keyframes stripes { to { background-position: 34px 0; } }
 @keyframes bunnyBounce {
-  0%,100% { margin-top: 0; }
-  50% { margin-top: -6px; }
+  0%,100% { transform: translate(-50%, -50%); }
+  50% { transform: translate(-50%, -53%); }
 }
 
 .app-shell {
@@ -274,5 +275,5 @@ canvas { width: 100%; height: 320px; display: block; }
   .panel { padding: 16px; }
   .history-item { grid-template-columns: 1fr; }
   .item-actions { justify-content: flex-end; }
-  .loader-rabbit { width: 72px; height: 72px; }
+  .loader-rabbit { width: 64px; height: 64px; }
 }
