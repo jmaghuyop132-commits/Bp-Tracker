@@ -1,4 +1,4 @@
-# Bunny BP Tracker v2
+# BP Tracker Bunny
 
 A mobile-friendly, installable blood pressure tracking PWA.
 
@@ -11,8 +11,9 @@ Upload the **contents of this folder** to the root of your repository:
 - `script.js`
 - `manifest.webmanifest`
 - `service-worker.js`
-- `icons/`
-- `images/`
+- `icon-192.png`
+- `icon-512.png`
+- `rabbit-head.png`
 
 Do not upload the ZIP itself as the website.
 
@@ -37,3 +38,5 @@ Readings are stored in the browser on the current device using local storage. Ex
 Update: Replaced hypertension stage labels with calmer target-based status wording while keeping all other features unchanged.
 
 Update: Pulse entry and pulse displays were removed. Existing saved blood-pressure readings remain compatible; any old pulse values are simply ignored by the interface.
+
+Update: Renamed the app to **BP Tracker Bunny**, fixed root icon paths, refreshed the app icons, and bumped the service-worker cache.

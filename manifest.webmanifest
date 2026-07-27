@@ -1,6 +1,6 @@
 {
   "name": "BP Tracker Bunny",
-  "short_name": "BP Tracker Bunny"
+  "short_name": "BP Bunny",
   "description": "A private, offline-friendly blood pressure tracker.",
   "start_url": "./",
   "scope": "./",

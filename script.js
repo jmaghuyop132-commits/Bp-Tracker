@@ -308,12 +308,12 @@ function exportCsv() {
     r.medication ? "Yes" : "No", r.timeOfDay, r.notes
   ]);
   const csv = [headers, ...rows].map(row => row.map(csvCell).join(",")).join("\n");
-  downloadBlob(csv, "bunny-bp-readings.csv", "text/csv;charset=utf-8");
+  downloadBlob(csv, "bp-tracker-bunny-readings.csv", "text/csv;charset=utf-8");
 }
 
 function exportJson() {
-  const payload = JSON.stringify({ app:"Bunny BP Tracker", version:2, exportedAt:new Date().toISOString(), readings }, null, 2);
-  downloadBlob(payload, "bunny-bp-backup.json", "application/json");
+  const payload = JSON.stringify({ app:"BP Tracker Bunny", version:2, exportedAt:new Date().toISOString(), readings }, null, 2);
+  downloadBlob(payload, "bp-tracker-bunny-backup.json", "application/json");
 }
 
 async function importJson(event) {

@@ -1,4 +1,4 @@
-const CACHE = "bp-tracker-bunny-v3";
+const CACHE = "bp-tracker-bunny-v3-icons-title";
 const ASSETS = [
   "./",
   "./index.html",
